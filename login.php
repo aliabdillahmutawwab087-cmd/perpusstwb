@@ -1,6 +1,10 @@
-<?php 
-include "koneksi.php";
+<?php
+include 'koneksi.php';
+
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,21 +50,23 @@ include "koneksi.php";
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <?php
-
-                                    if (isset($_POST['login'])) { 
+                                    if (isset($_POST['login'])) {
+                                        
+                                        // pastikan koneksi $koneksi sudah tersedia
                                         $username = $_POST['username'];
                                         $password = md5($_POST['password']);
 
-                                        $data = mysqli_query($koneksi, "SELECT * FROM eperpus_user 
+                                        $data = mysqli_query($koneksi, "SELECT * FROM eperpus_user
                                         WHERE username='$username' AND password='$password'");
-                                        $cek = mysqli_num_rows($data) ;
-                                        
-                                        if ($cek > 0){
+                                        $cek = mysqli_num_rows($data);
+
+                                        if ($cek > 0) {
                                             $_SESSION['user'] = mysqli_fetch_array($data);
-                                            echo '<script>alert("Selamat. Anda berhasil login");
+                                            echo '<script>alert("Selamat. anda berhasil login.");
                                             location.href="index.php";</script>';
+                                        
                                         } else {
-                                            echo '<script>alert("Maaf password anda salah")</script>';
+                                            echo '<script>alert("Username atau password salah.")</script>';
                                         }
                                     }
                                     ?>
@@ -68,19 +74,23 @@ include "koneksi.php";
                                         <div class="form-group">
                                             <input type="text" name="username" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                placeholder="Enter Username...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password" value="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
+                                        </div> 
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <label class="custom-control-label" for="customCheck">Remember
+                                                    Me</label>
+                                            </div>
                                         </div>
-
                                         <button name="login" type="submit" value="login" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
-                                        
                                     </form>
-
                                 </div>
                             </div>
                         </div>

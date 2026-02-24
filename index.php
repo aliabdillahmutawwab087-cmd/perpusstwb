@@ -1,10 +1,10 @@
-<?php 
+<?php
 include "koneksi.php";
-if(!isset($_SESSION["user"])) {
-    header('location:login.php');
+if(!isset($_SESSION["user"])){
+    header('Location: login.php');
+    exit;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +17,7 @@ if(!isset($_SESSION["user"])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -65,23 +65,24 @@ if(!isset($_SESSION["user"])) {
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-             
-             <li class="nav-item">
-                 <a class="nav-link collapsed" href="?page=peminjaman" data-toggle="collapse" data-target="#collapseTwo"
-                 aria-expanded="true" aria-controls="collapseTwo">
-                 <i class="fas fa-fw fa-cog"></i>
-                 <span>Peminjaman</span>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="?page=peminjaman" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Peminjaman</span>
                 </a>
             </li>
-            <?php if ($_SESSION['user']['level'] != 'peminjam') : ?>
+
+            <?php if($_SESSION['user']['level'] == 'admin') : ?>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="?page=kategori" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="index.php?page=kategori">
                     <i class="fas fa-solid fa-folder"></i>
                     <span>Kategori</span>
                 </a>
             </li>
-            <?php endif; ?>
+            <?php endif?>
+
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="?page=buku" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -89,6 +90,7 @@ if(!isset($_SESSION["user"])) {
                     <span>Buku</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="?page=ulasan" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -96,14 +98,14 @@ if(!isset($_SESSION["user"])) {
                     <span>Ulasan</span>
                 </a>
             </li>
+                
             <li class="nav-item">
-                <a class="nav-link collapsed" href="logout.php" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-solid fa-comment"></i>
+                <a class="nav-link" href="logout.php">
+                    <i class="fas fa-solid fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
             </li>
-                
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -332,23 +334,17 @@ if(!isset($_SESSION["user"])) {
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
-                 
-                       
-
-                    <!-- Content Row -->
 
                     <div class="row">
-
-                        <?php 
-                            $page = isset($_GET['page']) ? $_GET['page'] : 'home';
-                            if (file_exists($page . '.php')) {
-                                include $page . '.php';
-                            } else {
-                                include '404.php';
-                            }
+                
+                     <?php
+                        $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+                        if (file_exists($page . '.php')) {
+                            include $page . '.php';
+                        } else {
+                            include '404.php';
+                        }
                         ?>
-
                         <!-- Area Chart -->
                     </div>
                     <!-- Content Row -->
@@ -394,7 +390,7 @@ if(!isset($_SESSION["user"])) {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>
